@@ -4,38 +4,32 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class MainPageList extends BasePage {
-    //Индекс заголовка вопроса
-    private By indexHeading;
-    //Индекс соответствующего ответа под заголовком вопроса
-    private By indexUnderHeading;
+    //Кнопка для куки "Да все привыкли"
+    private By cookieButton = By.id("rcc-confirm-button");
 
     public MainPageList(WebDriver webDriver) {
         super(webDriver);
     }
 
-    public By getIndexOfHeading(int index) {
-        indexHeading = By.xpath(".//div[@id='accordion__heading-" + index + "']");
-        return indexHeading;
+    public void clickCookieButton() {
+        webDriver.findElement(cookieButton).click();
     }
 
-    public void scrollToHeading() {
-        WebElement element = webDriver.findElement(indexHeading);
+    public void clickQuestionOfHeading(int index) {
+        WebElement element = webDriver.findElement(By.xpath(".//div[@id='accordion__heading-" + index + "']"));
         ((JavascriptExecutor) webDriver).executeScript("arguments[0].scrollIntoView();", element);
+        element = webDriver.findElement(By.xpath(".//div[@id='accordion__heading-" + index + "']"));
+        element.click();
     }
 
-    public void clickSwitchHeading() {
-        webDriver.findElement(indexHeading).click();
-    }
-
-    public By getIndexUnderHeading(int index) {
-        indexUnderHeading = By.xpath(".//div[@id='accordion__panel-" + index + "']");
-        return indexUnderHeading;
-    }
-
-    public String getTextUnderHeading() {
-        return webDriver.findElement(indexUnderHeading).getText();
+    public String getTextUnderQuestionOfHeading(int index) {
+        new WebDriverWait(webDriver, 5).until(ExpectedConditions
+                .visibilityOfElementLocated(By.xpath(".//div[@id='accordion__panel-" + index + "']")));
+        return webDriver.findElement(By.xpath(".//div[@id='accordion__panel-" + index + "']")).getText();
     }
 
 }

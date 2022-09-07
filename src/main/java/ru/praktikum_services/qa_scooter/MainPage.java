@@ -15,7 +15,7 @@ public class MainPage extends BasePage {
     //Кнопка "Go!"
     private By goButton = By.cssSelector(".Button_Button__ra12g.Header_Button__28dPO");
     //Кнопка "Заказать" вверху главной страницы
-    private By upperOrderButton = By.cssSelector(".Button_Button__ra12g");
+    private By upperOrderButton = By.xpath(".//button[@class='Button_Button__ra12g']");
     //Кнопка "Заказать" внизу главной страницы
     private By lowerOrderButton = By.cssSelector(".Button_Button__ra12g.Button_Middle__1CSJM");
     //Логотип "Яндекс" на главной странице Самоката
